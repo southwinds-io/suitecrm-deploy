@@ -1,0 +1,18 @@
+name: SuiteCRM
+description: |
+  deploys SuiteCRM on Kubernetes
+author: SouthWinds Tech Ltd
+license: Apache 2.0
+version: 8
+info: |
+  SuiteCRM 8
+  MariaDB 10.6
+images:
+  MARIADB_AMD64: registry.southwinds.io/suitecrm-8/mariadb:10.6-amd64
+  MARIADB_ARM64: registry.southwinds.io/suitecrm-8/mariadb:10.6-arm64
+  SUITECRM_AMD64: registry.southwinds.io/suitecrm-8/suitecrm:8-amd64
+  SUITECRM_ARM64: registry.southwinds.io/suitecrm-8/suitecrm:8-arm64
+packages:
+  ART_X_K_AMD64: artr.gdn/x/linux/amd64/k:1.1
+  ART_X_K_ARM64: artr.gdn/x/linux/arm64/k:1.1
+  SUITECRM_INSTALLER: suitecrm/installer:6.2.1

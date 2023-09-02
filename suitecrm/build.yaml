@@ -1,0 +1,20 @@
+---
+profiles:
+  - name: suitecrm
+    description: configuration for the SuiteCRM installer package build
+    author: SouthWinds Tech Ltd
+    license: EULA
+    labels:
+      platform: linux
+      arch: any
+    type: exec
+    target: ./pkg
+
+functions:
+  - name: build-installer
+    description: |
+      builds the SuiteCRM installer package
+    run:
+      - art build -t suitecrm/installer:${PRODUCT_VERSION} -p suitecrm
+
+...

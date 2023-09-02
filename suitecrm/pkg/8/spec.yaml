@@ -1,0 +1,15 @@
+---
+# this release specification is used to deploy the application to Kubernetes
+name: SuiteCRM
+description: |
+  deploys SuiteCRM on Kubernetes
+author: SouthWinds Tech Ltd
+license: Apache 2.0
+version: "8"
+info: |
+  SuiteCRM 8
+  MariaDB 10.6
+
+images:
+  IMG_MARIADB: ${IMG_REG_URI}/${PROD_VER}/mariadb:10.6-${ART_ARCH}
+  IMG_SUITECRM: ${IMG_REG_URI}/${PROD_VER}/suitecrm:8-${ART_ARCH}

@@ -1,0 +1,49 @@
+---
+# this file is the microservice application manifest for SuiteCRM
+# its role is to aggregate all services required to make SuiteCRM work
+
+# the name of the application
+name: suitecrm
+# a description for the application
+description: deployment for SuiteCRM application
+# the application version, which should match the containing version folder name
+version: 8
+# one or more deployment profiles.
+# profiles instruct artisan which services should be deployed
+# you can define multiple profiles which contain a different combination of services
+profiles:
+  # in this case we only need a single profile that uses the SuiteCRM and MariaDB services
+  - name: default
+    description: deploys the SuiteCRM with a MariaDB backend
+    services:
+      - name: suitecrm
+      - name: mariadb
+
+# this is a list of services used by the profiles
+# the services add specific configuration not specified in the service manifests
+# this information is specified as behaviours under the "is" attribute
+services:
+  - name: mariadb
+    description: MariaDB database used by SuiteCRM
+    uri: ./services/mariadb.yaml
+    image: IMG_MARIADB
+    port:
+      db: "3306"
+
+  - name: suitecrm
+    description: SuiteCRM service
+    uri: ./services/suitecrm.yaml
+    image: IMG_SUITECRM
+    port:
+      ui: "8080"
+    # defines the public behaviour which instructs the artisan K transpiler to generate an ingress for the service
+    # so that it can be accessed from outside the cluster
+    is:
+      public:
+        - port: ui
+          path: /
+          domain: crm.${DOMAIN}{{if exists "CERT_ISSUER"}}
+          ingress: traefik
+          certManIssuer: ${CERT_ISSUER}
+          redirectHTTPS: yes{{end}}
+...
